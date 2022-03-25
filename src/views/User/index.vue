@@ -1,21 +1,19 @@
 <template>
-  <div>
-    <router-view></router-view>
-  </div>
+  <div>我是user</div>
 </template>
 
 <script>
 export default {
-  name: 'App',
+  name: 'User',
 
   data() {
     return {}
   },
 
-  created() {},
+  mounted() {},
 
   methods: {}
 }
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped></style>
