@@ -16,26 +16,9 @@
           }
         ]"
       />
-      <van-field
-        v-model="user.code"
-        name="code"
-        label="验证码"
-        placeholder="请输入6位验证码"
-        required
-        :rules="[{ required: true, message: '请填写6位验证码', pattern: /^[0-9]{6}$/ }]"
-      />
+      <van-field v-model="user.code" name="code" label="验证码" placeholder="请输入6位验证码" required :rules="[{ required: true, message: '请填写6位验证码', pattern: /^[0-9]{6}$/ }]" />
       <div style="margin: 16px">
-        <van-button
-          round
-          block
-          type="info"
-          native-type="submit"
-          :loading="isLoading"
-          loading-text="正在登陆..."
-          :disabled="isLoading"
-        >
-          登录
-        </van-button>
+        <van-button round block type="info" native-type="submit" :loading="isLoading" loading-text="正在登陆..." :disabled="isLoading">登录</van-button>
       </div>
     </van-form>
   </div>
@@ -64,7 +47,7 @@ export default {
         const res = await logInAPI(this.user)
         console.log(res)
         setToken(res.data.data.token)
-        Notify({ type: 'success', message: '登陆成功' })
+        Notify({ type: 'success', message: '登陆成功', duration: 500 })
         this.$router.replace({ path: '/layout/home' })
       } catch (error) {
         Notify({ type: 'danger', message: '账号或验证码错误' })

@@ -56,7 +56,21 @@ export const reportArticleAPI = (artID, artType) => request({
   data: { target: artID, type: artType, remark: '没有' }
 })
 
-// 局部更新文章列表
-export const updateTheArticleList = () => {
+// 搜索-联想菜单
+export const suggestListAPI = (keyWords) => request({
+  url: '/v1_0/suggestion',
+  method: 'GET',
+  params: { q: keyWords }
+})
 
+// 搜索 - 结果列表
+export const searchResultListAPI = ({ page = 1, per_page = 10, q }) => {
+  return request({
+    url: '/v1_0/search',
+    params: {
+      page: page,
+      per_page: per_page,
+      q: q
+    }
+  })
 }

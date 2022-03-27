@@ -7,21 +7,14 @@
         <!-- 标题 -->
         <span>{{ artObj.title }}</span>
         <!-- 单图 -->
-        <img
-          :src="artObj.cover.images[0]"
-          alt=""
-          class="thumb"
-          v-if="artObj.cover.type === 1"
-        />
+        <van-image :src="artObj.cover.images[0]" class="thumb" v-if="artObj.cover.type === 1">
+          <template v-slot:error>加载失败</template>
+        </van-image>
         <!-- 三图 -->
         <div v-if="artObj.cover.type > 1" class="thumb-box">
-          <img
-            v-for="(imgURL, index) in artObj.cover.images"
-            :key="index"
-            :src="imgURL"
-            alt=""
-            class="thumb"
-          />
+          <van-image v-for="(imgURL, index) in artObj.cover.images" :key="index" :src="imgURL" class="thumb">
+            <template v-slot:error>加载失败</template>
+          </van-image>
         </div>
       </div>
     </template>
@@ -34,17 +27,9 @@
           <span>{{ formatTime(artObj.pubdate) }}</span>
         </div>
         <!-- 反馈按钮X -->
-        <van-icon name="cross" @click="show = true" />
+        <van-icon name="cross" @click="show = true" v-if="isShow" />
         <!-- 反馈面板弹窗 -->
-        <van-action-sheet
-          v-model="show"
-          :actions="actions"
-          get-container="body"
-          :cancel-text="bottomText"
-          @select="onSelect"
-          @cancel="onCancel"
-          @click-overlay="closeFn"
-        />
+        <van-action-sheet v-model="show" :actions="actions" get-container="body" :cancel-text="bottomText" @select="onSelect" @cancel="onCancel" @click-overlay="closeFn" />
       </div>
     </template>
   </van-cell>
@@ -54,7 +39,11 @@
 import { firstActions, secondActions } from '@/api/report.js'
 import { timeAgo } from '@/utils/date.js'
 export default {
-  props: { artObj: Object },
+  name: 'ArticleItem',
+  props: {
+    artObj: Object,
+    isShow: { type: Boolean, default: true }
+  },
   data() {
     return {
       show: false,

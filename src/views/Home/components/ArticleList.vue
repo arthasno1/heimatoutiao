@@ -1,21 +1,8 @@
 <template>
   <div>
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
-      <van-list
-        v-model="loading"
-        :finished="finished"
-        finished-text="没有更多了"
-        @load="onLoad"
-        :immediate-check="false"
-        offset="50"
-      >
-        <ArticleItem
-          v-for="obj in list"
-          :key="obj.art_id"
-          :artObj="obj"
-          @dislikeEV="dislikeFN"
-          @reportEV="reportFN"
-        ></ArticleItem>
+      <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" :immediate-check="false" offset="50">
+        <ArticleItem v-for="obj in list" :key="obj.art_id" :artObj="obj" @dislikeEV="dislikeFN" @reportEV="reportFN"></ArticleItem>
       </van-list>
     </van-pull-refresh>
   </div>
@@ -23,12 +10,8 @@
 
 <script>
 import { Notify } from 'vant'
-import ArticleItem from './ArticleItem.vue'
-import {
-  getAllArticleListAPI,
-  dislikeArticleAPI,
-  reportArticleAPI
-} from '@/api/index.js'
+import ArticleItem from '../../../components/ArticleItem.vue'
+import { getAllArticleListAPI, dislikeArticleAPI, reportArticleAPI } from '@/api/index.js'
 export default {
   name: 'ArticleList',
   components: { ArticleItem },
@@ -39,7 +22,7 @@ export default {
       list: [],
       theTime: new Date().getTime(),
       loading: false, // 底部加载状态
-      finished: false, // 底部完成黄台
+      finished: false, // 底部完成
       isLoading: false // 下拉控制
     }
   },

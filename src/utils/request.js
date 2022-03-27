@@ -19,18 +19,19 @@ axios.interceptors.request.use(
   })
 
 // 添加响应拦截器
-axios.interceptors.response.use(function (response) {
-  // 对响应数据做点什么
-  return response
-}, function (error) {
-  // 对响应错误做点什么
-  // 用户过期返回登录页
-  if (error.response.status === 401) {
-    Notify({ type: 'warning', message: '您的身份已过期', duration: 1000 })
-    router.replace('/login')
-  }
-  return Promise.reject(error)
-})
+axios.interceptors.response.use(
+  function (response) {
+    // 对响应数据做点什么
+    return response
+  }, function (error) {
+    // 对响应错误做点什么
+    // 用户过期返回登录页
+    if (error.response.status === 401) {
+      Notify({ type: 'warning', message: '您的身份已过期', duration: 1000 })
+      router.replace('/login')
+    }
+    return Promise.reject(error)
+  })
 
 export default ({ url, method = 'GET', params = {}, data = {}, headers = {} }) => {
   return axios({

@@ -7,7 +7,7 @@
           <img class="logo" src="@/assets/logo.png" alt="" />
         </template>
         <template #right>
-          <van-icon name="search" size="0.48rem" color="#fff" />
+          <van-icon name="search" size="0.48rem" color="#fff" @click="toSearch" />
         </template>
       </van-nav-bar>
     </div>
@@ -15,21 +15,11 @@
     <!-- tab分页 -->
     <div class="main">
       <van-tabs v-model="channelId" sticky offset-top="1.22667rem" animated>
-        <van-tab
-          v-for="obj in userChannelList"
-          :key="obj.id"
-          :title="obj.name"
-          :name="obj.id"
-        >
+        <van-tab v-for="obj in userChannelList" :key="obj.id" :title="obj.name" :name="obj.id">
           <ArticleList :channelId="channelId" />
         </van-tab>
       </van-tabs>
-      <van-icon
-        name="plus"
-        size="0.37333334rem"
-        class="moreChannels"
-        @click="show = true"
-      />
+      <van-icon name="plus" size="0.37333334rem" class="moreChannels" @click="show = true" />
     </div>
     <!-- /tab分页 -->
     <!-- +号popup弹出层 -->
@@ -50,12 +40,7 @@
 <script>
 import ChannelEdit from './ChannelEdit.vue'
 import ArticleList from './components/ArticleList.vue'
-import {
-  getUserChannelsAPI,
-  getAllChannelsAPI,
-  updateChannelsAPI,
-  removeTheChannelAPI
-} from '@/api/index.js'
+import { getUserChannelsAPI, getAllChannelsAPI, updateChannelsAPI, removeTheChannelAPI } from '@/api/index.js'
 export default {
   name: 'Home',
   components: { ArticleList, ChannelEdit },
@@ -70,12 +55,7 @@ export default {
   computed: {
     // 筛选出--剩余频道
     unCheckChannelList() {
-      return this.allChannelList.filter(
-        bigObj =>
-          this.userChannelList.findIndex(
-            smallObj => smallObj.id === bigObj.id
-          ) === -1
-      )
+      return this.allChannelList.filter(bigObj => this.userChannelList.findIndex(smallObj => smallObj.id === bigObj.id) === -1)
     }
   },
   async created() {
@@ -104,9 +84,7 @@ export default {
     },
     // 删除频道
     async removeChannelFn(channelObj) {
-      const index = this.userChannelList.findIndex(
-        obj => obj.id === channelObj.id
-      )
+      const index = this.userChannelList.findIndex(obj => obj.id === channelObj.id)
       this.userChannelList.splice(index, 1)
       const res = await removeTheChannelAPI(channelObj.id)
       console.log(res)
@@ -118,6 +96,10 @@ export default {
     changeChannel(obj) {
       this.channelId = obj.id
       this.show = false
+    },
+    // 点击搜索--跳转搜索页面
+    toSearch() {
+      this.$router.push('/search')
     }
   }
 }

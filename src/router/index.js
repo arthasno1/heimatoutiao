@@ -13,7 +13,9 @@ const router = new VueRouter({
         { path: 'home', component: () => import('@/views/Home/index.vue') },
         { path: 'user', component: () => import('@/views/User/index.vue') }
       ]
-    }
+    },
+    { path: '/search', component: () => import('@/views/Search/index.vue') },
+    { path: '/search_result/:kw', component: () => import('@/views/Search/SearchResult.vue') }
   ]
 })
 
