@@ -6,7 +6,9 @@ import 'amfe-flexible'
 // 进入插件-directive
 import directivesObj from '@/utils/directive'
 // 引入vant
-import { NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, List, PullRefresh, ActionSheet, Popup, Row, Col, Badge, Search, Image as VanImage } from 'vant'
+import { NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, List, PullRefresh, ActionSheet, Popup, Row, Col, Badge, Search, Image as VanImage, Divider } from 'vant'
+// 使用vant
+Vue.use(Divider)
 Vue.use(VanImage)
 Vue.use(ActionSheet)
 Vue.use(Badge)
@@ -26,7 +28,7 @@ Vue.use(TabbarItem)
 Vue.use(List)
 Vue.use(PullRefresh)
 Vue.use(Popup)
-// 引入vant结束
+// 引入聚焦
 Vue.use(directivesObj)
 
 Vue.config.productionTip = false

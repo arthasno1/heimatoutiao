@@ -1,8 +1,22 @@
 <template>
   <div>
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
-      <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" :immediate-check="false" offset="50">
-        <ArticleItem v-for="obj in list" :key="obj.art_id" :artObj="obj" @dislikeEV="dislikeFN" @reportEV="reportFN"></ArticleItem>
+      <van-list
+        v-model="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="onLoad"
+        :immediate-check="false"
+        offset="50"
+      >
+        <ArticleItem
+          v-for="obj in list"
+          :key="obj.art_id"
+          :artObj="obj"
+          @dislikeEV="dislikeFN"
+          @reportEV="reportFN"
+          @click.native="itemClickFn(obj.art_id)"
+        ></ArticleItem>
       </van-list>
     </van-pull-refresh>
   </div>
@@ -27,7 +41,7 @@ export default {
     }
   },
   created() {
-    // console.log('触发created')
+    console.log('触发created')
     this.getArticleListFn()
   },
   methods: {
@@ -50,6 +64,10 @@ export default {
       this.isLoading = false
     },
     onLoad() {
+      if (this.list.length === 0) {
+        this.loading = false
+        return false
+      }
       console.log('触发触底刷新')
       this.getArticleListFn()
     },
@@ -63,7 +81,11 @@ export default {
     async dislikeFN(artID) {
       try {
         await dislikeArticleAPI(artID)
-        Notify({ type: 'success', message: '反馈成功', duration: 1000 })
+        Notify({
+          type: 'success',
+          message: '反馈成功',
+          duration: 1000
+        })
         console.log('成功了')
       } catch (error) {
         console.log('失败了')
@@ -74,6 +96,10 @@ export default {
       const res = await reportArticleAPI(artID, type)
       console.log(res)
       Notify({ type: 'success', message: '举报成功', duration: 1000 })
+    },
+    // 跳转详情页
+    itemClickFn(art_id) {
+      this.$router.push(`/detail?art_id=${art_id}`)
     }
   }
 }

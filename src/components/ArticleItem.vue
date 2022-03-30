@@ -12,7 +12,12 @@
         </van-image>
         <!-- 三图 -->
         <div v-if="artObj.cover.type > 1" class="thumb-box">
-          <van-image v-for="(imgURL, index) in artObj.cover.images" :key="index" :src="imgURL" class="thumb">
+          <van-image
+            v-for="(imgURL, index) in artObj.cover.images"
+            :key="index"
+            :src="imgURL"
+            class="thumb"
+          >
             <template v-slot:error>加载失败</template>
           </van-image>
         </div>
@@ -27,9 +32,17 @@
           <span>{{ formatTime(artObj.pubdate) }}</span>
         </div>
         <!-- 反馈按钮X -->
-        <van-icon name="cross" @click="show = true" v-if="isShow" />
+        <van-icon name="cross" @click.stop="show = true" v-if="isShow" />
         <!-- 反馈面板弹窗 -->
-        <van-action-sheet v-model="show" :actions="actions" get-container="body" :cancel-text="bottomText" @select="onSelect" @cancel="onCancel" @click-overlay="closeFn" />
+        <van-action-sheet
+          v-model="show"
+          :actions="actions"
+          get-container="body"
+          :cancel-text="bottomText"
+          @select="onSelect"
+          @cancel="onCancel"
+          @click-overlay="closeFn"
+        />
       </div>
     </template>
   </van-cell>

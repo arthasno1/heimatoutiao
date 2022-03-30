@@ -7,23 +7,46 @@
           <img class="logo" src="@/assets/logo.png" alt="" />
         </template>
         <template #right>
-          <van-icon name="search" size="0.48rem" color="#fff" @click="toSearch" />
+          <van-icon
+            name="search"
+            size="0.48rem"
+            color="#fff"
+            @click="toSearch"
+          />
         </template>
       </van-nav-bar>
     </div>
-    <!-- /顶部导航栏 -->
     <!-- tab分页 -->
     <div class="main">
-      <van-tabs v-model="channelId" sticky offset-top="1.22667rem" animated>
-        <van-tab v-for="obj in userChannelList" :key="obj.id" :title="obj.name" :name="obj.id">
+      <van-tabs
+        v-model="channelId"
+        sticky
+        animated
+        offset-top="1.22667rem"
+      >
+        <van-tab
+          :title="obj.name"
+          v-for="obj in userChannelList"
+          :key="obj.id"
+          :name="obj.id"
+        >
           <ArticleList :channelId="channelId" />
         </van-tab>
       </van-tabs>
-      <van-icon name="plus" size="0.37333334rem" class="moreChannels" @click="show = true" />
+      <van-icon
+        name="plus"
+        size="0.37333334rem"
+        class="moreChannels"
+        @click="show = true"
+      />
     </div>
-    <!-- /tab分页 -->
+
     <!-- +号popup弹出层 -->
-    <van-popup class="channel_popup" v-model="show" get-container="body">
+    <van-popup
+      class="channel_popup"
+      v-model="show"
+      get-container="body"
+    >
       <ChannelEdit
         :userList="userChannelList"
         :unCheckList="unCheckChannelList"
@@ -33,16 +56,20 @@
         @changeChannel="changeChannel"
       ></ChannelEdit>
     </van-popup>
-    <!-- /+号popup弹出层 -->
   </div>
 </template>
 
 <script>
 import ChannelEdit from './ChannelEdit.vue'
 import ArticleList from './components/ArticleList.vue'
-import { getUserChannelsAPI, getAllChannelsAPI, updateChannelsAPI, removeTheChannelAPI } from '@/api/index.js'
+import {
+  getUserChannelsAPI,
+  getAllChannelsAPI,
+  updateChannelsAPI,
+  removeTheChannelAPI
+} from '@/api/index.js'
 export default {
-  name: 'Home',
+  name: 'HomeIndex',
   components: { ArticleList, ChannelEdit },
   data() {
     return {
@@ -55,18 +82,31 @@ export default {
   computed: {
     // 筛选出--剩余频道
     unCheckChannelList() {
-      return this.allChannelList.filter(bigObj => this.userChannelList.findIndex(smallObj => smallObj.id === bigObj.id) === -1)
+      return this.allChannelList.filter(
+        bigObj =>
+          this.userChannelList.findIndex(
+            smallObj => smallObj.id === bigObj.id
+          ) === -1
+      )
     }
   },
   async created() {
     // 获取用户TAB频道列表
     const res = await getUserChannelsAPI()
     this.userChannelList = res.data.data.channels
-    console.log(this.userChannelList, 'this.userChannelList', '用户频道列表')
+    console.log(
+      this.userChannelList,
+      'this.userChannelList',
+      '用户频道列表'
+    )
     // 获取所有频道列表
     const res2 = await getAllChannelsAPI()
     this.allChannelList = res2.data.data.channels
-    console.log(this.allChannelList, 'this.allChannelList', '所有频道列表')
+    console.log(
+      this.allChannelList,
+      'this.allChannelList',
+      '所有频道列表'
+    )
   },
   methods: {
     // 添加频道到用户列表
@@ -84,7 +124,9 @@ export default {
     },
     // 删除频道
     async removeChannelFn(channelObj) {
-      const index = this.userChannelList.findIndex(obj => obj.id === channelObj.id)
+      const index = this.userChannelList.findIndex(
+        obj => obj.id === channelObj.id
+      )
       this.userChannelList.splice(index, 1)
       const res = await removeTheChannelAPI(channelObj.id)
       console.log(res)

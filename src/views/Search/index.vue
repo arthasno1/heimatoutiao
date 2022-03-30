@@ -4,13 +4,33 @@
     <!-- 搜索页面头部 -->
     <div class="search-header">
       <!-- 后退按钮 -->
-      <van-icon name="arrow-left" color="white" size="0.48rem" class="goback" @click="$router.back()" />
+      <van-icon
+        name="arrow-left"
+        color="white"
+        size="0.48rem"
+        class="goback"
+        @click="$router.back()"
+      />
       <!-- 搜索组件 -->
-      <van-search placeholder="请输入搜索关键词" background="#007BFF" shape="round" v-fofo v-model="kw" @input="inputFn" @search="searchFn" />
+      <van-search
+        placeholder="请输入搜索关键词"
+        background="#007BFF"
+        shape="round"
+        v-fofo
+        v-model="kw"
+        @input="inputFn"
+        @search="searchFn"
+      />
     </div>
     <!-- 搜索建议列表 -->
     <div class="sugg-list">
-      <div class="sugg-item" v-for="(str, index) in suggestList" :key="index" v-html="lightFn(str, kw)" @click="suggestClickFn(str)"></div>
+      <div
+        class="sugg-item"
+        v-for="(str, index) in suggestList"
+        :key="index"
+        v-html="lightFn(str, kw)"
+        @click="suggestClickFn(str)"
+      ></div>
     </div>
     <!-- 搜索历史 -->
     <div class="search-history" v-if="suggestList.length === 0">
@@ -23,7 +43,14 @@
       </van-cell>
       <!-- 历史列表 -->
       <div class="history-list">
-        <span class="history-item" v-for="(historyStr, index) in history" :key="index" @click="historyClickFn(historyStr)">{{ historyStr }}</span>
+        <span
+          class="history-item"
+          v-for="(historyStr, index) in history"
+          :key="index"
+          @click="historyClickFn(historyStr)"
+        >
+          {{ historyStr }}
+        </span>
       </div>
     </div>
   </div>
@@ -61,7 +88,10 @@ export default {
     },
     // 关键字高亮
     lightFn(originStr, target) {
-      return originStr.replace(target, `<span style="color:red;">${target}</span>`)
+      return originStr.replace(
+        target,
+        `<span style="color:red;">${target}</span>`
+      )
     },
     moveFn(str) {
       setTimeout(() => {
