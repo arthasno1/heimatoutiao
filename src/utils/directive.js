@@ -13,6 +13,16 @@ export default {
           if (inp) inp.focus()
           if (textArea) textArea.focus()
         }
+      },
+      updated(el) {
+        if (el.nodeName === 'INPUT' || el.nodeName === 'TEXTAREA') {
+          el.focus()
+        } else {
+          const inp = el.querySelector('input')
+          const textArea = el.querySelector('textarea')
+          if (inp) inp.focus()
+          if (textArea) textArea.focus()
+        }
       }
     })
   }

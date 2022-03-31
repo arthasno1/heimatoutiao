@@ -144,3 +144,39 @@ export const sendCommentAPI = ({ id, content, art_id = null }) => {
     data: obj
   })
 }
+// 用户 - 基本资料
+export const userInfoAPI = () => {
+  return request({
+    url: '/v1_0/user'
+  })
+}
+// 用户- 个人资料(就为了获取生日)
+export const userProfileAPI = () => {
+  return request({
+    url: '/v1_0/user/profile'
+  })
+}
+// 用户- 更新头像
+export const updatePhotoAPI = (formObj) => {
+  return request({
+    url: '/v1_0/user/photo',
+    method: 'PATCH',
+    data: formObj
+  })
+}
+// 用户 - 更新资料
+export const updateUserProfileAPI = (dataObj) => {
+  const obj = { name: '', gender: 0, birthday: '', intro: '' }
+  for (const prop in obj) {
+    if (dataObj[prop] === undefined) {
+      delete obj[prop]
+    } else {
+      obj[prop] = dataObj[prop]
+    }
+  }
+  return request({
+    url: '/v1_0/user/profile',
+    method: 'PATCH',
+    data: obj
+  })
+}

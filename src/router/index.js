@@ -16,8 +16,8 @@ const router = new VueRouter({
     },
     { path: '/search', component: () => import('@/views/Search/index.vue') },
     { path: '/search_result/:kw', component: () => import('@/views/Search/SearchResult.vue') },
-    { path: '/detail', component: () => import('@/views/ArticleDetail/index.vue') }
+    { path: '/detail', component: () => import('@/views/ArticleDetail/index.vue') },
+    { path: '/user_editor', component: () => import('@/views/User/UserEdit.vue') }
   ]
 })
-
 export default router

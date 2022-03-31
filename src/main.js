@@ -6,8 +6,13 @@ import 'amfe-flexible'
 // 进入插件-directive
 import directivesObj from '@/utils/directive'
 // 引入vant
-import { NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, List, PullRefresh, ActionSheet, Popup, Row, Col, Badge, Search, Image as VanImage, Divider } from 'vant'
+import { NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, List, PullRefresh, ActionSheet, Popup, Row, Col, Badge, Search, Image as VanImage, Divider, CellGroup, Tag, ShareSheet, Dialog, DatetimePicker } from 'vant'
 // 使用vant
+Vue.use(DatetimePicker)
+Vue.use(Dialog)
+Vue.use(ShareSheet)
+Vue.use(CellGroup)
+Vue.use(Tag)
 Vue.use(Divider)
 Vue.use(VanImage)
 Vue.use(ActionSheet)

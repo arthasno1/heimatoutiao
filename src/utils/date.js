@@ -11,3 +11,6 @@ export const timeAgo = (targetTime) => {
   dayjs.locale('zh')
   return dayjs().to(dayjs(targetTime))
 }
+export const timer = (time) => {
+  return dayjs(time).format('YYYY-MM-DD')
+}
