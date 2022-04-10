@@ -6,7 +6,7 @@
       <van-cell>
         <!-- 使用 title 插槽来自定义标题 -->
         <template #icon>
-          <img :src="userObj.photo" alt="" class="avatar" />
+          <img :src="$store.state.userPhoto" alt="" class="avatar" />
         </template>
         <template #title>
           <span class="username">{{ userObj.name }}</span>
@@ -35,7 +35,7 @@
     <!-- 操作面板 -->
     <van-cell-group class="action-card">
       <van-cell icon="edit" title="编辑资料" is-link to="/user_editor" />
-      <van-cell icon="chat-o" title="小思同学" is-link />
+      <van-cell icon="chat-o" title="小思同学" is-link @click="$router.push('/chat')" />
       <van-cell icon="warning-o" title="退出登录" is-link @click="quit" />
     </van-cell-group>
   </div>
@@ -44,7 +44,8 @@
 <script>
 import { userInfoAPI } from '@/api/index.js'
 import { Dialog } from 'vant'
-import { removeToken } from '@/utils/token.js'
+import { removeStorage } from '@/utils/storage.js'
+import { mapMutations } from 'vuex'
 export default {
   name: 'UserIndex',
   data() {
@@ -53,11 +54,14 @@ export default {
     }
   },
   async created() {
+    console.log('store', this.$store.state)
     const res = await userInfoAPI()
     this.userObj = res.data.data
     console.log('userObj', this.userObj)
+    this.SET_USERPHOTO(this.userObj.photo)
   },
   methods: {
+    ...mapMutations(['SET_USERPHOTO']),
     // 退出登录
     quit() {
       Dialog.confirm({
@@ -65,7 +69,7 @@ export default {
         message: '走了吗？'
       })
         .then(() => {
-          removeToken()
+          removeStorage('geek-itheima')
           this.$router.push('/login')
         })
         .catch(() => {

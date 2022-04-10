@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import { getStorage } from '@/utils/storage'
 // 获取所有频道
 export const getAllChannelsAPI = () => request({
   url: '/v1_0/channels',
@@ -180,3 +181,11 @@ export const updateUserProfileAPI = (dataObj) => {
     data: obj
   })
 }
+// 刷新token
+export const getNewTokenAPI = () => request({
+  url: '/v1_0/authorizations',
+  method: 'PUT',
+  headers: {
+    Authorization: 'Bearer ' + getStorage('refresh_token')
+  }
+})

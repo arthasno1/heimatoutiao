@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { Notify } from 'vant'
+import Notify from '@/ui/Notify.js'
 import ArticleItem from '../../../components/ArticleItem.vue'
 import { getAllArticleListAPI, dislikeArticleAPI, reportArticleAPI } from '@/api/index.js'
 export default {
@@ -41,7 +41,6 @@ export default {
     }
   },
   created() {
-    console.log('触发created')
     this.getArticleListFn()
   },
   methods: {
@@ -88,7 +87,7 @@ export default {
         })
         console.log('成功了')
       } catch (error) {
-        console.log('失败了')
+        console.log('反馈不喜欢失败了')
       }
     },
     // 反馈垃圾内容

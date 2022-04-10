@@ -9,44 +9,46 @@
       <h1 class="art-title">
         {{ artObj.title }}
       </h1>
-
+      <van-loading size="50px" v-if="Object.keys(artObj).length === 0">加载中...</van-loading>
       <!-- 用户信息 -->
-      <van-cell center :title="artObj.aut_name" :label="formatDate(artObj.pubdate)">
-        <template #icon>
-          <img :src="artObj.aut_photo" alt="" class="avatar" />
-        </template>
-        <template #default>
-          <div>
-            <van-button
-              type="info"
-              size="mini"
-              v-if="artObj.is_followed === true"
-              @click="followFn(true, artObj.aut_id)"
-            >
-              已关注
-            </van-button>
-            <van-button
-              icon="plus"
-              type="info"
-              size="mini"
-              plain
-              v-else
-              @click="followFn(false, artObj.aut_id)"
-            >
-              关注
-            </van-button>
-          </div>
-        </template>
-      </van-cell>
+      <div v-else>
+        <van-cell center :title="artObj.aut_name" :label="formatDate(artObj.pubdate)">
+          <template #icon>
+            <img :src="artObj.aut_photo" alt="" class="avatar" />
+          </template>
+          <template #default>
+            <div>
+              <van-button
+                type="info"
+                size="mini"
+                v-if="artObj.is_followed === true"
+                @click="followFn(true, artObj.aut_id)"
+              >
+                已关注
+              </van-button>
+              <van-button
+                icon="plus"
+                type="info"
+                size="mini"
+                plain
+                v-else
+                @click="followFn(false, artObj.aut_id)"
+              >
+                关注
+              </van-button>
+            </div>
+          </template>
+        </van-cell>
 
-      <!-- 分割线 -->
-      <van-divider></van-divider>
+        <!-- 分割线 -->
+        <van-divider></van-divider>
 
-      <!-- 文章内容 -->
-      <div class="art-content" v-html="artObj.content"></div>
+        <!-- 文章内容 -->
+        <div class="art-content" v-html="artObj.content"></div>
 
-      <!-- 分割线 -->
-      <van-divider>End</van-divider>
+        <!-- 分割线 -->
+        <van-divider>End</van-divider>
+      </div>
 
       <!-- 点赞 -->
       <div class="like-box">
@@ -176,5 +178,8 @@ export default {
 .like-box {
   display: flex;
   justify-content: center;
+}
+.van-loading {
+  text-align: center;
 }
 </style>

@@ -7,19 +7,34 @@
         <!-- 标题 -->
         <span>{{ artObj.title }}</span>
         <!-- 单图 -->
-        <van-image :src="artObj.cover.images[0]" class="thumb" v-if="artObj.cover.type === 1">
+        <img
+          v-lazy="artObj.cover.images[0]"
+          class="thumb"
+          v-if="artObj.cover.type === 1"
+        />
+        <!-- <van-image
+          :src="artObj.cover.images[0]"
+          class="thumb"
+          v-if="artObj.cover.type === 1"
+        >
           <template v-slot:error>加载失败</template>
-        </van-image>
+        </van-image> -->
         <!-- 三图 -->
         <div v-if="artObj.cover.type > 1" class="thumb-box">
-          <van-image
+          <img
+            v-for="(imgURL, index) in artObj.cover.images"
+            :key="index"
+            v-lazy="imgURL"
+            class="thumb"
+          />
+          <!-- <van-image
             v-for="(imgURL, index) in artObj.cover.images"
             :key="index"
             :src="imgURL"
             class="thumb"
           >
             <template v-slot:error>加载失败</template>
-          </van-image>
+          </van-image> -->
         </div>
       </div>
     </template>

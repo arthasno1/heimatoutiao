@@ -22,9 +22,7 @@
         label="验证码"
         placeholder="请输入6位验证码"
         required
-        :rules="[
-          { required: true, message: '请填写6位验证码', pattern: /^[0-9]{6}$/ }
-        ]"
+        :rules="[{ required: true, message: '请填写6位验证码', pattern: /^[0-9]{6}$/ }]"
       />
       <div style="margin: 16px">
         <van-button
@@ -44,9 +42,9 @@
 </template>
 
 <script>
-import { Notify } from 'vant'
+import Notify from '@/ui/Notify.js'
 import { logInAPI } from '@/api/index.js'
-import { setToken } from '@/utils/token.js'
+import { setStorage } from '@/utils/storage.js'
 export default {
   name: 'Login',
   data() {
@@ -58,6 +56,7 @@ export default {
       isLoading: false
     }
   },
+
   methods: {
     async onSubmit(value) {
       this.isLoading = true
@@ -65,7 +64,8 @@ export default {
       try {
         const res = await logInAPI(this.user)
         console.log(res)
-        setToken(res.data.data.token)
+        setStorage('geek-itheima', res.data.data.token)
+        setStorage('refresh_token', res.data.data.refresh_token)
         Notify({ type: 'success', message: '登陆成功', duration: 500 })
         this.$router.replace({ path: '/layout/home' })
       } catch (error) {

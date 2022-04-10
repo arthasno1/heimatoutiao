@@ -14,12 +14,7 @@
       <van-cell title="生日" is-link :value="profile.birthday" @click="birthdayFn" />
     </van-cell-group>
     <!-- 姓名弹窗 -->
-    <van-dialog
-      v-model="show"
-      title="请输入用户名"
-      show-cancel-button
-      :before-close="beforeCloseFn"
-    >
+    <van-dialog v-model="show" title="请输入用户名" show-cancel-button :before-close="beforeCloseFn">
       <input type="text" v-fofo v-model="inputUserName" />
     </van-dialog>
     <!-- 生日选择 -->
@@ -38,9 +33,10 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import { timer } from '@/utils/date.js'
 import { userProfileAPI, updatePhotoAPI, updateUserProfileAPI } from '@/api/index.js'
-import { Notify } from 'vant'
+import Notify from '@/ui/Notify.js'
 export default {
   name: 'UserEdit',
   data() {
@@ -60,6 +56,7 @@ export default {
     console.log('profile', this.profile)
   },
   methods: {
+    ...mapMutations(['SET_USERPHOTO']),
     // 文件选择改变事件
     async onFileChange(e) {
       if (e.target.files.length === 0) {
@@ -71,6 +68,7 @@ export default {
       const res = await updatePhotoAPI(theFd)
       console.log(res)
       this.profile.photo = res.data.data.photo
+      this.SET_USERPHOTO(res.data.data.photo)
     },
     // 更改名称
     nameClickFn() {

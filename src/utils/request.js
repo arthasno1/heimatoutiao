@@ -1,7 +1,9 @@
 import theAxios from 'axios'
-import router from '@/router/index.js'
-import { Notify } from 'vant'
-import { getToken } from '@/utils/token.js'
+import Notify from '@/ui/Notify.js'
+import { setStorage, getStorage, removeStorage } from '@/utils/storage'
+import { getNewTokenAPI } from '@/api/index'
+import router from '@/router/index'
+
 const axios = theAxios.create(
   { baseURL: 'http://toutiao.itheima.net/', timeout: 20000 }
 )
@@ -9,8 +11,9 @@ const axios = theAxios.create(
 axios.interceptors.request.use(
   function (config) {
     // 在发送请求之前做些什么
-    if (getToken()?.length > 0 && config.headers.Authorization === undefined) {
-      config.headers.Authorization = `Bearer ${getToken()}`
+    if (getStorage('geek-itheima')?.length > 0 && config.headers.Authorization === undefined) {
+      config.headers.Authorization = `Bearer ${getStorage('geek-itheima')}`
+      console.log('config', config)
     }
     return config
   },
@@ -25,11 +28,20 @@ axios.interceptors.response.use(
     // 对响应数据做点什么
     return response
   },
-  function (error) {
+  async function (error) {
     // 对响应错误做点什么
     // 用户过期返回登录页
+    console.dir(error)
     if (error.response.status === 401) {
       Notify({ type: 'warning', message: '您的身份已过期', duration: 1000 })
+      removeStorage('geek-itheima')
+      const res = await getNewTokenAPI()
+      setStorage('geek-itheima', res.data.data.token)
+      error.config.headers.Authorization = `Bearer ${res.data.data.token}`
+      return axios(error.config)
+    } else if (error.response.status === 500 && error.config.method === 'put' && error.config.url === '/v1_0/authorizations') {
+      Notify({ type: 'warning', message: '您的身份已过期', duration: 1000 })
+      localStorage.clear()
       router.replace('/login')
     }
     return Promise.reject(error)

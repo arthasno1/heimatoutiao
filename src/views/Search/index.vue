@@ -4,13 +4,7 @@
     <!-- 搜索页面头部 -->
     <div class="search-header">
       <!-- 后退按钮 -->
-      <van-icon
-        name="arrow-left"
-        color="white"
-        size="0.48rem"
-        class="goback"
-        @click="$router.back()"
-      />
+      <van-icon name="arrow-left" color="white" size="0.48rem" class="goback" @click="$router.back()" />
       <!-- 搜索组件 -->
       <van-search
         placeholder="请输入搜索关键词"
@@ -59,6 +53,8 @@
 
 <script>
 import { suggestListAPI } from '@/api/index.js'
+import { getStorage, setStorage } from '@/utils/storage.js'
+
 export default {
   name: 'Search',
   data() {
@@ -66,7 +62,7 @@ export default {
       kw: '', // 搜索关键字
       timer: null, // 防抖--定时器
       suggestList: [], // 搜索建议
-      history: JSON.parse(localStorage.getItem('his')) || []
+      history: JSON.parse(getStorage('his')) || []
     }
   },
   methods: {
@@ -88,10 +84,7 @@ export default {
     },
     // 关键字高亮
     lightFn(originStr, target) {
-      return originStr.replace(
-        target,
-        `<span style="color:red;">${target}</span>`
-      )
+      return originStr.replace(target, `<span style="color:red;">${target}</span>`)
     },
     moveFn(str) {
       setTimeout(() => {
@@ -127,7 +120,7 @@ export default {
         const theSet = new Set(this.history)
         // 将Set形式转换成Array
         const arr = Array.from(theSet)
-        localStorage.setItem('his', JSON.stringify(arr))
+        setStorage('his', JSON.stringify(arr))
       }
     }
   }
