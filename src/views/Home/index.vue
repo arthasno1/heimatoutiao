@@ -71,6 +71,7 @@ export default {
   },
   activated() {
     document.documentElement.scrollTop = this.$route.meta.scrollT
+    document.body.scrollTop = this.$route.meta.scrollT
     window.addEventListener('scroll', this.scrollFN)
   },
   deactivated() {
@@ -80,8 +81,8 @@ export default {
     // 获取滚动距离
     scrollFN() {
       console.log('触发滚动事件', this.channelScrollTObj)
-      this.$route.meta.scrollT = document.documentElement.scrollTop
-      this.channelScrollTObj[this.channelId] = document.documentElement.scrollTop
+      this.$route.meta.scrollT = document.documentElement.scrollTop || document.body.scrollTop
+      this.channelScrollTObj[this.channelId] = document.documentElement.scrollTop || document.body.scrollTop
     },
     // 添加频道到用户列表
     async addChannelFn(channelObj) {
@@ -101,6 +102,7 @@ export default {
       console.log('触发切换tab')
       this.$nextTick(() => {
         document.documentElement.scrollTop = this.channelScrollTObj[this.channelId]
+        document.body.scrollTop = this.channelScrollTObj[this.channelId]
       })
       console.log('触发切换tab2')
     },
