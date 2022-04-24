@@ -11,8 +11,8 @@ const router = new VueRouter({
       path: '/layout',
       component: () => import('@/views/Layout/index.vue'),
       children: [
-        { path: 'home', component: () => import('@/views/Home/index.vue'), meta: { scrollT: 0 } },
-        { path: 'user', component: () => import('@/views/User/index.vue') }
+        { path: 'home', component: () => import('@/views/Home/index.vue'), meta: { scrollT: 0, active: 0 } },
+        { path: 'user', component: () => import('@/views/User/index.vue'), meta: { active: 1 } }
       ]
     },
     { path: '/search', component: () => import('@/views/Search/index.vue') },

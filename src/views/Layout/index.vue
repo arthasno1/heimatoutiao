@@ -18,7 +18,7 @@ export default {
   name: 'Layout',
 
   data() {
-    return { active: 0 }
+    return { active: this.$route.meta.active }
   },
 
   mounted() {},
