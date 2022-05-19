@@ -4,9 +4,7 @@ import { setStorage, getStorage, removeStorage } from '@/utils/storage'
 import { getNewTokenAPI } from '@/api/index'
 import router from '@/router/index'
 
-const axios = theAxios.create(
-  { baseURL: 'http://toutiao.itheima.net/', timeout: 20000 }
-)
+const axios = theAxios.create({ baseURL: 'http://toutiao.itheima.net/', timeout: 20000 })
 // 添加请求拦截器
 axios.interceptors.request.use(
   function (config) {
@@ -20,7 +18,8 @@ axios.interceptors.request.use(
   function (error) {
     // 对请求错误做些什么
     return Promise.reject(error)
-  })
+  }
+)
 
 // 添加响应拦截器
 axios.interceptors.response.use(
@@ -39,13 +38,18 @@ axios.interceptors.response.use(
       setStorage('geek-itheima', res.data.data.token)
       error.config.headers.Authorization = `Bearer ${res.data.data.token}`
       return axios(error.config)
-    } else if (error.response.status === 500 && error.config.method === 'put' && error.config.url === '/v1_0/authorizations') {
+    } else if (
+      error.response.status === 500 &&
+      error.config.method === 'put' &&
+      error.config.url === '/v1_0/authorizations'
+    ) {
       Notify({ type: 'warning', message: '您的身份已过期', duration: 1000 })
       localStorage.clear()
       router.replace('/login')
     }
     return Promise.reject(error)
-  })
+  }
+)
 
 export default ({ url, method = 'GET', params = {}, data = {}, headers = {} }) => {
   return axios({
