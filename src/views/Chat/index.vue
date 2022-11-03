@@ -74,9 +74,11 @@ export default {
       },
       transports: ['websocket']
     })
+    // 测试链接是否建立成功
     this.socket.on('connect', () => {
       console.log('连接建立成功')
     })
+    // 接收后端传来的消息
     this.socket.on('message', obj => {
       this.list.push({ name: 'xs', msg: obj.msg })
       this.$nextTick(function () {

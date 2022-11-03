@@ -1,24 +1,16 @@
-# vue_heima
+# 黑马头条
 
-## Project setup
-```
-npm install
-```
+一个新闻类的小 demo
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## 使用技术
 
-### Compiles and minifies for production
-```
-npm run build
-```
+- **vue 全家桶**
 
-### Lints and fixes files
-```
-npm run lint
-```
+## 项目展示
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+![](./%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA%E5%9B%BE%E7%89%87/1.png)
+![](./%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA%E5%9B%BE%E7%89%87/2.png)
+![](./%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA%E5%9B%BE%E7%89%87/3.png)
+![](./%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA%E5%9B%BE%E7%89%87/4.png)
+![](./%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA%E5%9B%BE%E7%89%87/5.png)
+![](./%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA%E5%9B%BE%E7%89%87/6.png)
