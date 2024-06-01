@@ -7,11 +7,7 @@
         <!-- 标题 -->
         <span>{{ artObj.title }}</span>
         <!-- 单图 -->
-        <img
-          v-lazy="artObj.cover.images[0]"
-          class="thumb"
-          v-if="artObj.cover.type === 1"
-        />
+        <img v-lazy="artObj.cover.images[0]" class="thumb" v-if="artObj.cover.type === 1" />
         <!-- <van-image
           :src="artObj.cover.images[0]"
           class="thumb"
@@ -21,12 +17,7 @@
         </van-image> -->
         <!-- 三图 -->
         <div v-if="artObj.cover.type > 1" class="thumb-box">
-          <img
-            v-for="(imgURL, index) in artObj.cover.images"
-            :key="index"
-            v-lazy="imgURL"
-            class="thumb"
-          />
+          <img v-for="(imgURL, index) in artObj.cover.images" :key="index" v-lazy="imgURL" class="thumb" />
           <!-- <van-image
             v-for="(imgURL, index) in artObj.cover.images"
             :key="index"

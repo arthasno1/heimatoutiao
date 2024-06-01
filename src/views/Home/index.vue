@@ -86,10 +86,13 @@ export default {
     },
     // 添加频道到用户列表
     async addChannelFn(channelObj) {
+      console.log(123, channelObj)
+
       this.userChannelList.push(channelObj)
       const newArr = this.userChannelList.filter(obj => obj.id !== 0)
       const theNewArr = newArr.map((obj, index) => {
         const newobj = { ...obj }
+        console.log('newobj::: ', newobj)
         delete newobj.name
         newobj.seq = index
         return newobj

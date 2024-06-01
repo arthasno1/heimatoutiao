@@ -15,5 +15,12 @@ module.exports = {
     }
   },
   publicPath: './',
-  devServer: { open: true }
+  devServer: { open: true },
+  configureWebpack: {
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src')
+      }
+    }
+  }
 }
